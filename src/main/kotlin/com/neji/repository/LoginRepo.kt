@@ -17,5 +17,6 @@ fun createNV(nv: NhanVien) = transaction {
     addLogger(StdOutSqlLogger)
     User.insert {
         it[name] = nv.name ?: ""
+        it[age] = nv.age ?: 0
     } get User.id
 }

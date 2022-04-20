@@ -9,8 +9,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.Table
 import java.util.*
 
 fun Application.loginRouting() {
@@ -20,17 +19,17 @@ fun Application.loginRouting() {
     val myRealm = environment.config.property("jwt.realm").getString()
 
     routing {
-        get ("api/nhanvien") {
+        get("api/nhanvien") {
             val id = call.parameters["id"]?.toInt()
             call.respond(getUserById(id!!))
         }
 
-        post ("api/nhanvien") {
+        post("api/nhanvien") {
             val nv = call.receive<NhanVien>()
-            call.respond(mapOf( "id" to createNV(nv)))
+            call.respond(mapOf("id" to createNV(nv)))
         }
 
-        post ("api/login") {
+        post("api/login") {
             val user = call.receive<NhanVien>()
             val token = JWT.create()
                 .withAudience(audience)
@@ -51,8 +50,8 @@ fun Application.loginRouting() {
 //    }
 }
 
-object User: Table(name = "user") {
+object User : Table(name = "user") {
     val id = integer("id").autoIncrement()
     val name = varchar("name", 50)
-//    val age = integer("age")
+    val age = integer("age")
 }
