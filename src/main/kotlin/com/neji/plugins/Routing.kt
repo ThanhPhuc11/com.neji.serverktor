@@ -10,17 +10,17 @@ import io.ktor.server.response.*
 import io.ktor.server.request.*
 
 fun Application.configureRouting() {
-    val listNV = mutableListOf<NhanVien>().apply {
-        add(NhanVien("Nguyen Van A", 19))
-        add(NhanVien("Nguyen Van B", 20))
-    }
+//    val listNV = mutableListOf<NhanVien>().apply {
+//        add(NhanVien("Nguyen Van A", 19))
+//        add(NhanVien("Nguyen Van B", 20))
+//    }
 
     routing {
         get("/api/getList/{age}") {
-            call.respond(
-                HttpStatusCode.OK,
-                listNV.firstOrNull { it.age == (call.parameters["age"]?.toInt()) }?:"ko co"
-            )
+//            call.respond(
+//                HttpStatusCode.OK,
+//                listNV.firstOrNull { it.age == (call.parameters["age"]?.toInt()) }?:"ko co"
+//            )
         }
         // Static plugin. Try to access `/static/index.html`
         static("/static") {
