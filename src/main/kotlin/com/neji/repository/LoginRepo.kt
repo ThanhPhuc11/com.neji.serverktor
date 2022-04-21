@@ -1,7 +1,7 @@
 package com.neji.repository
 
+import com.neji.dto.User
 import com.neji.model.NhanVien
-import com.neji.routing.User
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.insert

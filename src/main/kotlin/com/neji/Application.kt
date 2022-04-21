@@ -18,5 +18,5 @@ fun Application.module() {
     configureSerialization()
     configureMonitoring()
     configureSecurity()
-    loginRouting()
+//    loginRouting()
 }
