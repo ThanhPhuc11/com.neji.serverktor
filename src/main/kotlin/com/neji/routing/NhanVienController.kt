@@ -1,17 +1,15 @@
 package com.neji.routing
 
+import com.neji.service.UserService
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-fun Route.nhanvienController() {
-    route("api/nhanvien") {
+fun Route.userController() {
+    route("api/user") {
         get {
-            call.parameters["id"]?.let {
-                call.respond(mapOf("token" to it))
-                return@get
-            }
-            call.respond(mapOf("token" to "haha"))
+            val list = UserService.getUser(call.parameters["id"])
+            call.respond(list)
         }
     }
 }

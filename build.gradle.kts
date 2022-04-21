@@ -19,7 +19,10 @@ application {
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
@@ -39,4 +42,6 @@ dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:3.0.4")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
+    implementation("com.github.papsign:Ktor-OpenAPI-Generator:-SNAPSHOT")
 }
