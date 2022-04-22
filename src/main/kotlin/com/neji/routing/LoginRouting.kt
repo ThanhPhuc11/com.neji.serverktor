@@ -35,7 +35,8 @@ fun Application.loginRouting() {
                 .withAudience(audience)
                 .withIssuer(issuer)
                 .withClaim("name", user.name)
-                .withExpiresAt(Date(System.currentTimeMillis() + 60000))
+                .withClaim("id", user.id)
+                .withExpiresAt(Date(System.currentTimeMillis() + 600000))
                 .sign(Algorithm.HMAC256(secret))
 
             call.respond(hashMapOf("token" to token))
