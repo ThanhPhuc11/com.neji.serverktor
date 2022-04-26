@@ -5,11 +5,17 @@ val logback_version: String by project
 plugins {
     application
     kotlin("jvm") version "1.6.20"
-                id("org.jetbrains.kotlin.plugin.serialization") version "1.6.20"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.20"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+
+//    id("org.springframework.boot") version "2.6.6"
+//    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+//    kotlin("plugin.spring") version "1.6.10"
 }
 
 group = "com.neji"
-version = "0.0.1"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 
@@ -22,6 +28,7 @@ repositories {
     maven {
         url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
         url = uri("https://jitpack.io")
+        maven(url = "https://repo.spring.io/snapshot")
     }
 }
 
@@ -45,4 +52,32 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
     implementation("com.github.papsign:Ktor-OpenAPI-Generator:-SNAPSHOT")
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+//tasks.jar {
+//    manifest {
+//        attributes["Main-Class"] = "ApplicationKt"
+//    }
+//    configurations["compileClasspath"].forEach { file: File ->
+//        from(zipTree(file.absoluteFile))
+//    }
+//    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+//}
+
+tasks {
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
+        }
+    }
 }
