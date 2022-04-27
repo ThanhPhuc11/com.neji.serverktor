@@ -14,6 +14,7 @@ fun Application.module() {
         "jdbc:mariadb://database-aws-test-1.cnc3ohcvl0tr.ap-southeast-1.rds.amazonaws.com:3306/mydbtest?useUnicode=no&characterEncoding=UTF-8&useLegacyDatetimeCode=false",
         driver = "org.mariadb.jdbc.Driver", user = "admin", password = "12345678"
     )
+    koinInstall()
     configureRouting()
     configureSerialization()
     configureMonitoring()

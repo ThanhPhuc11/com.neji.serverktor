@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object UserRepo {
+class UserRepo {
     fun getAllUser() = transaction {
         addLogger(StdOutSqlLogger)
         UserDto

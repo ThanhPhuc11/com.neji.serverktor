@@ -6,8 +6,10 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.koin.java.KoinJavaComponent.inject
 
 fun Route.userAuthController() {
+    val service: UserService by inject(UserService::class.java)
     authenticate("auth-jwt") {
         get("/authen/user") {
             val principal = call.principal<JWTPrincipal>()
@@ -16,7 +18,7 @@ fun Route.userAuthController() {
             val expiresAt = principal.expiresAt?.time?.minus(System.currentTimeMillis())
 //            call.respondText("Hello, $id $username")
 
-            val list = UserService.getUser(id)
+            val list = service.getUser(id)
             call.respond(list)
         }
     }

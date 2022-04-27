@@ -3,7 +3,7 @@ package com.neji.service
 import com.neji.model.NhanVien
 import com.neji.repository.UserRepo
 
-object UserService {
+class UserService(private val repo: UserRepo) {
     fun getUser(id: String?): List<NhanVien> {
         val paramId = try {
             id!!.toInt()
@@ -11,8 +11,8 @@ object UserService {
             null
         }
         paramId?.let {
-            return UserRepo.getUserById(paramId)
+            return repo.getUserById(paramId)
         }
-        return UserRepo.getAllUser()
+        return repo.getAllUser()
     }
 }

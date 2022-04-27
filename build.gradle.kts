@@ -29,6 +29,9 @@ repositories {
         url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
         url = uri("https://jitpack.io")
         maven(url = "https://repo.spring.io/snapshot")
+
+//        maven ( url = "http://kotlin.bintray.com/ktor")
+        maven (url = "https://dl.bintray.com/kotlin/kotlinx" )
     }
 }
 
@@ -51,19 +54,23 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
-    implementation("com.github.papsign:Ktor-OpenAPI-Generator:-SNAPSHOT")
+//    implementation("com.github.papsign:Ktor-OpenAPI-Generator:-SNAPSHOT")
+
+    implementation("io.insert-koin:koin-core:3.2.0-beta-1")
+    implementation("io.insert-koin:koin-ktor:3.2.0-beta-1")
+    implementation("io.insert-koin:koin-logger-slf4j:3.2.0-beta-1")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+//    kotlinOptions {
+//        freeCompilerArgs = listOf("-Xjsr305=strict")
+//        jvmTarget = "11"
+//    }
+//}
+//
+//tasks.withType<Test> {
+//    useJUnitPlatform()
+//}
 //tasks.jar {
 //    manifest {
 //        attributes["Main-Class"] = "ApplicationKt"
