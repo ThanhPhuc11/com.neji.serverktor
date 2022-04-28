@@ -2,14 +2,13 @@ package com.neji.routing
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.neji.model.NhanVien
+import com.neji.model.UserModel
 import com.neji.repository.createNV
 import com.neji.repository.getUserById
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.jetbrains.exposed.sql.Table
 import java.util.*
 
 fun Application.loginRouting() {
@@ -25,12 +24,13 @@ fun Application.loginRouting() {
         }
 
         post("api/nhanvien") {
-            val nv = call.receive<NhanVien>()
+            val nv = call.receive<UserModel>()
             call.respond(mapOf("id" to createNV(nv)))
         }
 
         post("api/login") {
-            val user = call.receive<NhanVien>()
+            val user = call.receive<UserModel>()
+
             val token = JWT.create()
                 .withAudience(audience)
                 .withIssuer(issuer)
