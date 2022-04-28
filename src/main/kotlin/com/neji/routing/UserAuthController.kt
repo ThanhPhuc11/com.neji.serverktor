@@ -36,10 +36,8 @@ fun Route.userAuthController() {
             val token = jwtUtils.genToken(this.context.application, id!!.toInt())
             call.respond(mapOf("token" to token))
         }
-    }
 
-    authenticate("auth-jwt") {
-        route("user") {
+        authenticate("auth-jwt") {
             get {
                 val principal = call.principal<JWTPrincipal>()
                 val id = principal!!.payload.getClaim("id").toString()
@@ -48,6 +46,23 @@ fun Route.userAuthController() {
                 val list = service.getUser(id)
                 call.respond(list)
             }
+
+            patch {
+
+            }
         }
     }
+
+//    authenticate("auth-jwt") {
+//        route("user") {
+//            get {
+//                val principal = call.principal<JWTPrincipal>()
+//                val id = principal!!.payload.getClaim("id").toString()
+//                val expiresAt = principal.expiresAt?.time?.minus(System.currentTimeMillis())
+//
+//                val list = service.getUser(id)
+//                call.respond(list)
+//            }
+//        }
+//    }
 }
