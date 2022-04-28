@@ -40,4 +40,17 @@ class UserRepo {
                 UserModel(it)
             }
     }.toMutableList()
+
+    fun updateUser(userModel: UserModel) = transaction {
+        addLogger(StdOutSqlLogger)
+        UserDto.update({ UserDto.id eq userModel.id!! }) {
+//            it[firstname] = userModel.firstname
+            userModel.firstname?.let { it2 -> it[firstname] = it2 }
+            userModel.lastname?.let { it2 -> it[lastname] = it2 }
+            userModel.phone?.let { it2 -> it[phone] = it2 }
+            userModel.avatar?.let { it2 -> it[avatar] = it2 }
+            userModel.lat?.let { it2 -> it[lat] = it2 }
+            userModel.long?.let { it2 -> it[long] = it2 }
+        }
+    }
 }

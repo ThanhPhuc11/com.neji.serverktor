@@ -43,12 +43,15 @@ fun Route.userAuthController() {
                 val id = principal!!.payload.getClaim("id").toString()
                 val expiresAt = principal.expiresAt?.time?.minus(System.currentTimeMillis())
 
-                val list = service.getUser(id)
-                call.respond(list)
+                val user = service.getUser(id)
+                call.respond(user!!)
             }
 
             patch {
-
+                val principal = call.principal<JWTPrincipal>()
+                val id = principal!!.payload.getClaim("id").toString()
+                val userModel = call.receive<UserModel>()
+                call.respond(service.updateUser(id, userModel))
             }
         }
     }

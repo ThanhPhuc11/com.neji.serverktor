@@ -2,6 +2,7 @@ package com.neji.service
 
 import com.neji.model.UserModel
 import com.neji.repository.UserRepo
+import io.ktor.http.*
 
 class UserService(private val repo: UserRepo) {
     fun checkExisEmail(email: String?): Boolean {
@@ -26,15 +27,25 @@ class UserService(private val repo: UserRepo) {
         return !(userName == null || password == null)
     }
 
-    fun getUser(id: String?): List<UserModel> {
+    fun getUser(id: String?): UserModel? {
         val paramId = try {
             id!!.toInt()
         } catch (_: Exception) {
             null
         }
         paramId?.let {
-            return repo.getUserById(paramId)
+            return repo.getUserById(paramId).firstOrNull()
         }
-        return repo.getAllUser()
+        return null
+    }
+
+    fun updateUser(id: String?, userModel: UserModel): HttpStatusCode {
+        getUser(id)?.let {
+            userModel.id = id!!.toInt()
+            if(repo.updateUser(userModel) == 1) {
+                return HttpStatusCode.NoContent
+            }
+        }
+        return HttpStatusCode.BadRequest
     }
 }
