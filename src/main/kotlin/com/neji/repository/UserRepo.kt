@@ -28,7 +28,7 @@ class UserRepo {
         UserDto
             .selectAll()
             .map {
-                UserModel(it[UserDto.id], it[UserDto.name], it[UserDto.age])
+                UserModel(it)
             }
     }
 

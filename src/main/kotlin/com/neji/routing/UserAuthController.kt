@@ -15,14 +15,13 @@ import org.koin.java.KoinJavaComponent.inject
 fun Route.userAuthController() {
     val service: UserService by inject(UserService::class.java)
     val jwtUtils: JwtUtils by inject(JwtUtils::class.java)
-    route("checkExistEmail") {
-        get {
+    route("user") {
+        get("checkExistEmail") {
             val email = call.parameters["email"]
             call.respond(service.checkExisEmail(email))
         }
-    }
-    route("register") {
-        post {
+
+        post("register") {
             val userModel = call.receive<UserModel>()
             val id = service.registerUser(userModel)
             id?.let {
@@ -31,25 +30,24 @@ fun Route.userAuthController() {
             }
 //            id?.let { call.respond(HttpStatusCode.Created, mapOf("id" to id)) }
         }
-    }
 
-    route("api/user") {
-        get {
-            val list = service.getUser(call.parameters["id"])
-            call.respond(list)
+        get("getTokenById") {
+            val id = call.parameters["id"]
+            val token = jwtUtils.genToken(this.context.application, id!!.toInt())
+            call.respond(mapOf("token" to token))
         }
     }
 
     authenticate("auth-jwt") {
-        get("/authen/user") {
-            val principal = call.principal<JWTPrincipal>()
-            val id = principal!!.payload.getClaim("id").toString()
-            val username = principal!!.payload.getClaim("name").asString()
-            val expiresAt = principal.expiresAt?.time?.minus(System.currentTimeMillis())
-//            call.respondText("Hello, $id $username")
+        route("user") {
+            get {
+                val principal = call.principal<JWTPrincipal>()
+                val id = principal!!.payload.getClaim("id").toString()
+                val expiresAt = principal.expiresAt?.time?.minus(System.currentTimeMillis())
 
-            val list = service.getUser(id)
-            call.respond(list)
+                val list = service.getUser(id)
+                call.respond(list)
+            }
         }
     }
 }

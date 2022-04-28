@@ -17,7 +17,7 @@ class JwtUtils {
             .withIssuer(issuer)
 //            .withClaim("name", user.name)
             .withClaim("id", id)
-            .withExpiresAt(Date(System.currentTimeMillis() + 600000))
+            .withExpiresAt(Date(System.currentTimeMillis() + 86400000))
             .sign(Algorithm.HMAC256(secret))
     }
 }
