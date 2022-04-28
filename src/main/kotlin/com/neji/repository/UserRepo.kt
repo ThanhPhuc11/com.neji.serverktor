@@ -41,6 +41,26 @@ class UserRepo {
             }
     }.toMutableList()
 
+    fun getPasswordByEmail(email: String) = transaction {
+        addLogger(StdOutSqlLogger)
+        UserDto
+            .select { UserDto.email eq email }
+            .map {
+                UserModel(it)
+            }
+            .firstOrNull()?.password
+    }
+
+    fun getIdByEmail(email: String) = transaction {
+        addLogger(StdOutSqlLogger)
+        UserDto
+            .select { UserDto.email eq email }
+            .map {
+                UserModel(it)
+            }
+            .firstOrNull()?.id
+    }
+
     fun updateUser(userModel: UserModel) = transaction {
         addLogger(StdOutSqlLogger)
         UserDto.update({ UserDto.id eq userModel.id!! }) {

@@ -15,6 +15,16 @@ class UserService(private val repo: UserRepo) {
         }
     }
 
+    fun getIdFromAuthen(userModel: UserModel): Int? {
+        if (userModel.email != null && userModel.password != null) {
+            val password = repo.getPasswordByEmail(userModel.email!!)
+            if (userModel.password == password) {
+                return repo.getIdByEmail(userModel.email!!)
+            }
+        }
+        return null
+    }
+
     fun registerUser(userModel: UserModel): Int? {
         if (checkExisEmail(userModel.email)) return null
         if (isValidate(userModel.name, userModel.password)) {
@@ -42,7 +52,7 @@ class UserService(private val repo: UserRepo) {
     fun updateUser(id: String?, userModel: UserModel): HttpStatusCode {
         getUser(id)?.let {
             userModel.id = id!!.toInt()
-            if(repo.updateUser(userModel) == 1) {
+            if (repo.updateUser(userModel) == 1) {
                 return HttpStatusCode.NoContent
             }
         }

@@ -12,7 +12,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.java.KoinJavaComponent.inject
 
-fun Route.userAuthController() {
+fun Route.userController() {
     val service: UserService by inject(UserService::class.java)
     val jwtUtils: JwtUtils by inject(JwtUtils::class.java)
     route("user") {

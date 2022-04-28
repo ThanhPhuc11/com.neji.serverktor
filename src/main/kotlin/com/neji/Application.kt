@@ -2,7 +2,6 @@ package com.neji
 
 import io.ktor.server.application.*
 import com.neji.plugins.*
-import com.neji.routing.loginRouting
 import org.jetbrains.exposed.sql.Database
 
 fun main(args: Array<String>): Unit =
@@ -19,5 +18,4 @@ fun Application.module() {
     configureSerialization()
     configureMonitoring()
     configureSecurity()
-    loginRouting()
 }
