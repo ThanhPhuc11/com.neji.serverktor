@@ -14,8 +14,10 @@ fun Application.module() {
         driver = "org.mariadb.jdbc.Driver", user = "admin", password = "12345678"
     )
     koinInstall()
+    webSocket()
     configureRouting()
     configureSerialization()
     configureMonitoring()
     configureSecurity()
+
 }

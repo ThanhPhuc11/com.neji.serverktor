@@ -59,6 +59,9 @@ dependencies {
     implementation("io.insert-koin:koin-core:3.2.0-beta-1")
     implementation("io.insert-koin:koin-ktor:3.2.0-beta-1")
     implementation("io.insert-koin:koin-logger-slf4j:3.2.0-beta-1")
+
+    //webSocket
+    implementation("io.ktor:ktor-server-websockets:$ktor_version")
 }
 
 //tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
