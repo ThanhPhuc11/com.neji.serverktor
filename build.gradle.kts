@@ -1,6 +1,7 @@
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+val firebaseAdminVersion: String by project
 
 plugins {
     application
@@ -62,6 +63,15 @@ dependencies {
 
     //webSocket
     implementation("io.ktor:ktor-server-websockets:$ktor_version")
+
+    // Ktor client
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
+    implementation("io.ktor:ktor-client-content-negotiation:2.1.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.0-beta-1")
+
+    // Firebase admin
+    implementation ("com.google.firebase:firebase-admin:9.0.0")
 }
 
 //tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
